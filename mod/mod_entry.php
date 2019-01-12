@@ -88,6 +88,7 @@ function rem_os($id)
 
 function add_os($id)
 {
+	$con=mysqli_connect("localhost","root","","denmark1");
 	$os=request('os');
 	if(!is_numeric($os)) return;
 	mysqli_query("INSERT INTO wh_text_os VALUES($id,$os)");
