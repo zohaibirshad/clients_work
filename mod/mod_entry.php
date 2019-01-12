@@ -227,20 +227,20 @@ $row=mysqli_fetch_assoc($rs);
 		ORDER BY
 			date_created DESC
 		";
-	$rs=$this->db->open($sql);
+	$rs=mysqli_query($con,$sql);
 //die($sql);
-	while($rs->next()){
+	while($row=mysqli_fetch_assoc($rs)){
 
 		//$t='<tr><td style="border-top:1px solid #999999">[COMMENT[NAME]]</td></tr><tr><td>[COMMENT[EMAIL]]</td></tr><tr><td style="background-color:#ffffff">[COMMENT[TEXT]]</td></tr>';
 		$t=$this->page->read_template('entry_comment_item');
-		$t=str_replace('[COMMENT[ID]]',   $rs->field('id'),$t);
-		$t=str_replace('[COMMENT[NAME]]', $rs->field('username'),$t);
-		$t=str_replace('[COMMENT[EMAIL]]',$this->display_email($rs->field('useremail')),$t);
-		$t=str_replace('[COMMENT[TEXT]]', $rs->field('comment'),$t);
+		$t=str_replace('[COMMENT[ID]]',   $row['id'],$t);
+		$t=str_replace('[COMMENT[NAME]]', $row['username'],$t);
+		$t=str_replace('[COMMENT[EMAIL]]',$this->display_email($row['useremail']),$t);
+		$t=str_replace('[COMMENT[TEXT]]', $row['comment'],$t);
 		$clist.=$t;
 
 	}
-	$rs->close();
+	mysqli_close($con);
 	$tpl=str_replace('[ENTRY[COMMENTS]]',$clist,$tpl);
 	apply_section($tpl,'HASCOMMENT',$clist==''?1:0);
 
