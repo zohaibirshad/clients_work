@@ -11,6 +11,7 @@ class mod_list extends module
 function display($type=0)
 
 {
+	$con=mysqli_connect("localhost","root","","denmark1");
 
 	$p=request('p',1);
 
@@ -67,11 +68,11 @@ function display($type=0)
 
 
 
-	$rs=$this->db->open($sql,$start,$cnt);
+	$rs=mysqli_query($con,$sql);
 
 
 
-	while($rs->next()){
+	while($row=mysqli_fetch_assoc($rs)){
 
 
 
@@ -81,9 +82,9 @@ function display($type=0)
 
 		$t=str_replace('[ROW[BCOL]]', $row_even?'#ffffff':'#e3e3ff',$t);
 
-		$t=str_replace('[ROW[ID]]',   $rs->field('id'),$t);
+		$t=str_replace('[ROW[ID]]',   $row['id'],$t);
 
-		$t=str_replace('[ROW[TITLE]]',$rs->field('title'),$t);
+		$t=str_replace('[ROW[TITLE]]',$row['title'],$t);
 
 
 
@@ -97,7 +98,7 @@ function display($type=0)
 
 	}
 
-	$rs->close();
+	mysqli_close($con);
 
 
 
@@ -199,7 +200,8 @@ function display($type=0)
 
 	$tpl=str_replace('[ENTRY[LIST]]',$rows,$tpl);
 
-	$this->page->title=($type==0?'Alfabetisk liste':'Seneste tips');
+
+	$this->page->title=($type==0?'Alfabetisk liste':'Seneste tips');
 
 	$this->page->content=utf8_encode($tpl);
 
