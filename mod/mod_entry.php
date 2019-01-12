@@ -79,9 +79,10 @@ function newtext()
 
 function rem_os($id)
 {
+	$con=mysqli_connect("localhost","root","","denmark1");
 	$os=request('os');
 	if(!is_numeric($os)) return;
-	$this->db->execute("DELETE FROM wh_text_os WHERE text_id=$id AND os_id=$os");
+	mysqli_query($con,"DELETE FROM wh_text_os WHERE text_id=$id AND os_id=$os");
 	$this->html_redirect('/?mod=entry&id='.$id.'&c=edit&x='.rand(1000,9999));
 }
 
