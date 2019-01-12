@@ -23,15 +23,21 @@ function login_form()
 
 function login_user()
 {
+	$con=mysqli_connect("localhost","root","","denmark1");
 	$user=request('user');
 	$pass=request('pass');
 	if($user=='') return $this->login_form();
 
-	$rs=$this->db->open("SELECT * FROM wh_username='$user' AND passworr='$pass'");
-	if(is_null($rs)) return $this->login_form();
-	if(!$rs->next()) return $this->login_form();
+	//$rs=$this->db->open("SELECT * FROM wh_username='$user' AND passworr='$pass'");
+	$sql="SELECT * FROM wh_username='$user' AND passworr='$pass'";
+	$rs=mysqli_query($con,$sql);
+
+	//if(is_null($rs))
+	if(mysqli_num_rows($rs<=0)) return $this->login_form();
+	//if(!$rs->next()) return $this->login_form();
 	$_SESSION['wh_user']=$user;
-	$rs->close();
+	mysqli_close($con);
+	//$rs->close();
 	return $this->check_user();
 }
 

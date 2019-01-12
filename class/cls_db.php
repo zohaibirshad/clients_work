@@ -335,14 +335,14 @@ function connect($host,$database,$user,$password,$options='')
 	//::if($this->_is_connected) return;
 
 	// Connect to host
-	$this->_cn=mysql_connect($host,$user,$password);
+	$this->_cn=mysqli_connect($host,$user,$password);
 	if($this->_cn===false){
 		$this->_str_error="Error connecting to database: ".$host;
 		return false;
 	}
 
 	// Connect to database
-	if(!mysql_select_db($database)){
+	if(!mysqli_select_db($database)){
 		$this->_str_error="Error selecting to database: ".$database;
 		return false;
 	}
