@@ -97,35 +97,37 @@ function add_os($id)
 
 function edit($id)
 {
+	$con=mysqli_connect("localhost","root","","denmark1");
 	$tpl=$this->page->read_template('entry_edit');
 
-	$rs=$this->db->open("SELECT * FROM wh_textdata WHERE id=$id");
-	if(!$rs->next()) return;
-	$title=$rs->field('title');
-	$text=$rs->field('content');
+	$rs=mysqli_query($con,"SELECT * FROM wh_textdata WHERE id=$id");
+	if(!$rs) return;
+	$row=mysqli_fetch_assoc($rs)
+	$title=$row['title'];
+	$text=$row['content'];
 	$text=$this->from_db($text);
-	$tpl=str_replace('[ENTRY[ID]]',$rs->field('id'),$tpl);
+	$tpl=str_replace('[ENTRY[ID]]',$row['id'],$tpl);
 	$tpl=str_replace('[ENTRY[TITLE]]',$title,$tpl);
 	$tpl=str_replace('[ENTRY[TEXT]]',$text,$tpl);
-	$rs->close();
+	mysqli_close($con);
 
 	$os='';
 	$oslist=array();
-	$rs=$this->db->open("SELECT o.* FROM wh_text_os t,wh_os o WHERE t.text_id=$id AND t.os_id=o.id ORDER BY o.seq");
-	while($rs->next()){
-		$oslist[]=$rs->field('id');
-		$os.='<option value="'.$rs->field('id').'">'.$rs->field('name').'</option>';
+	$rs=mysqli_query($con,"SELECT o.* FROM wh_text_os t,wh_os o WHERE t.text_id=$id AND t.os_id=o.id ORDER BY o.seq");
+	while($row=mysqli_fetch_assoc($rs)){
+		$oslist[]=$row['id'];
+		$os.='<option value="'.$row['id'].'">'.$row['name'].'</option>';
 	}
-	$rs->close();
+	mysqli_close($con);
 	$tpl=str_replace('[ENTRY[C-OS]]',$os,$tpl);
 
 	$os='';
-	$rs=$this->db->open("SELECT * FROM wh_os ORDER BY seq");
-	while($rs->next()){
-		if(!in_array($rs->field('id'),$oslist))
-			$os.='<option value="'.$rs->field('id').'">'.$rs->field('name').'</option>';
+	$rs=mysqli_query($con,"SELECT * FROM wh_os ORDER BY seq");
+	while($row=mysqli_fetch_assoc($rs)){
+		if(!in_array($row['id'],$oslist))
+			$os.='<option value="'.$row['id']].'">'.$row['name'].'</option>';
 	}
-	$rs->close();
+	mysqli_close($con);
 	$tpl=str_replace('[ENTRY[P-OS]]',$os,$tpl);
 
 	$this->page->title='Rediger "'.$title.'"';
