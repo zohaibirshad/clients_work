@@ -202,14 +202,14 @@ $row=mysqli_fetch_assoc($rs);
 			o.seq,
 			o.name
 		";
-	$rs=$this->db->open($sql);
-	if($rs->next()){
-		do{
-			if($os!='') $os.=', ';
-			$os.=$rs->field('shortname');
-		}while($rs->next());
+	$rs=mysqli_query($con,$sql);
+	while ($row=mysqli_fetch_assoc($rs)) {
+		# code...
+	if($os!='') $os.=', ';
+			$os.=$row['shortname'];
+		}
 	}
-	$rs->close();
+	mysqli_close($con);
 	if($os=='') $os='Generelt';
 	$tpl=str_replace('[ENTRY[OSLIST]]', $os,$tpl);
 
