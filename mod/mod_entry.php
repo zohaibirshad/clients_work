@@ -152,6 +152,8 @@ function update($id)
 
 function display($id)
 {
+	$con=mysqli_connect("localhost","root","","denmark1");
+
 	// Read entry template
 	$tpl=$this->page->read_template('entry');
 
@@ -164,11 +166,11 @@ function display($id)
 		WHERE
 			id=$id
 		";
-	$rs=$this->db->open($sql);
-	if(!$rs->next()) return;
-
+	$rs=mysqli_query($con,$sql);
+	if(!$rs) return;
+$row=mysqli_fetch_assoc($rs);
 	// Get and normalize date/time
-	$d=$rs->field('date_created');
+	$d=$row['date_created'];
 	if($d=='0000-00-00 00:00:00') $d='<font color=white>For længe siden</font>';
 
 	// Get and normalize text content
