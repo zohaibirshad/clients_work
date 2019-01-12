@@ -136,15 +136,16 @@ function edit($id)
 
 function update($id)
 {
+	$con=mysqli_connect("localhost","root","","denmark1");
 	$title=request('title');
 	$text=request('text');
 
 	$text=$this->to_db($text);
 
-	$title=$this->db->escape_string($title);
-	$text=$this->db->escape_string($text);
+	$title=mysqli_real_escape_string($title);
+	$text=mysqli_real_escape_string($text);
 
-	$this->db->execute("UPDATE wh_textdata SET title='$title',content='$text' WHERE id=$id");
+	mysqli_query($con,"UPDATE wh_textdata SET title='$title',content='$text' WHERE id=$id");
 
 	$this->html_redirect('/?mod=entry&id='.$id.'&c=edit&x='.rand(1000,9999));
 }
