@@ -38,7 +38,7 @@ function login($user,$pass)
 			password='$pass';
 		";
 	//$db->open($sql);
-	if(!(mysqli_query($con,$sql)) return false;
+	//if(!(mysqli_query($con,$sql)) return false;
 	//if(!$db->move_next()) return false;
 	$row=mysqli_fetch_assoc(mysqli_query($con,$sql));
 	
