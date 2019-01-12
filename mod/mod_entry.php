@@ -90,7 +90,7 @@ function add_os($id)
 {
 	$os=request('os');
 	if(!is_numeric($os)) return;
-	$this->db->execute("INSERT INTO wh_text_os VALUES($id,$os)");
+	mysqli_query("INSERT INTO wh_text_os VALUES($id,$os)");
 	$this->html_redirect('/?mod=entry&id='.$id.'&c=edit&x='.rand(1000,9999));
 }
 
