@@ -23,6 +23,8 @@ function present()
 
 function login($user,$pass)
 {
+	$con=mysqli_connect("localhost","root","","denmark1");
+
 	global $db;
 
 	$sql="
@@ -35,12 +37,16 @@ function login($user,$pass)
 			AND
 			password='$pass';
 		";
-	$db->open($sql);
-	if(!$db->move_next()) return false;
-	$this->id=$db->field('id');
-	$this->username=$db->field('username');
-	$this->fullname=$db->field('fullname');
-	$db->close();
+	//$db->open($sql);
+	if(!(mysqli_query($con,$sql)) return false;
+	//if(!$db->move_next()) return false;
+	$row=mysqli_fetch_assoc(mysqli_query($con,$sql));
+	
+	$this->id=$row['id'];
+	$this->username=$row['username'];
+	
+	$this->fullname=$row['fullname'];
+	mysqli_close($con);
 
 	return true;
 }
