@@ -102,7 +102,7 @@ function edit($id)
 
 	$rs=mysqli_query($con,"SELECT * FROM wh_textdata WHERE id=$id");
 	if(!$rs) return;
-	$row=mysqli_fetch_assoc($rs)
+	$row=mysqli_fetch_assoc($rs);
 	$title=$row['title'];
 	$text=$row['content'];
 	$text=$this->from_db($text);
@@ -125,7 +125,7 @@ function edit($id)
 	$rs=mysqli_query($con,"SELECT * FROM wh_os ORDER BY seq");
 	while($row=mysqli_fetch_assoc($rs)){
 		if(!in_array($row['id'],$oslist))
-			$os.='<option value="'.$row['id']].'">'.$row['name'].'</option>';
+			$os.='<option value="'.$row['id'].'">'.$row['name'].'</option>';
 	}
 	mysqli_close($con);
 	$tpl=str_replace('[ENTRY[P-OS]]',$os,$tpl);
@@ -208,7 +208,7 @@ $row=mysqli_fetch_assoc($rs);
 	if($os!='') $os.=', ';
 			$os.=$row['shortname'];
 		}
-	}
+	
 	mysqli_close($con);
 	if($os=='') $os='Generelt';
 	$tpl=str_replace('[ENTRY[OSLIST]]', $os,$tpl);
