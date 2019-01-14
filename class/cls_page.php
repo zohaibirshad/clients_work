@@ -23,7 +23,7 @@ function send(&$mod)
 	$tpl=str_replace('[TREF]','/?mod=entry&amp;id=',$tpl);
 
 	$tpl=str_replace('[EXT]','.php',$tpl);
-
+//prg
 	$tpl=preg_replace("/\[OS\[(\S[^\]]+)\]\]/","os_img(\"\\1\");",$tpl);
 	$tpl=preg_replace("/\[KEY\[(\S[^\]]+)\]\]/","spankey(\"\\1\");",$tpl);
 	$tpl=preg_replace("/\[STR\[(\S[^\]]+)\]\]/","local_chars(constant(\"STR_\\1\"));",$tpl);
