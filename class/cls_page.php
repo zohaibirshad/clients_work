@@ -24,9 +24,9 @@ function send(&$mod)
 
 	$tpl=str_replace('[EXT]','.php',$tpl);
 
-	$tpl=preg_replace("/\[OS\[(\S[^\]]+)\]\]/e","os_img(\"\\1\");",$tpl);
-	$tpl=preg_replace("/\[KEY\[(\S[^\]]+)\]\]/e","spankey(\"\\1\");",$tpl);
-	$tpl=preg_replace("/\[STR\[(\S[^\]]+)\]\]/e","local_chars(constant(\"STR_\\1\"));",$tpl);
+	$tpl=preg_replace("/\[OS\[(\S[^\]]+)\]\]/","os_img(\"\\1\");",$tpl);
+	$tpl=preg_replace("/\[KEY\[(\S[^\]]+)\]\]/","spankey(\"\\1\");",$tpl);
+	$tpl=preg_replace("/\[STR\[(\S[^\]]+)\]\]/","local_chars(constant(\"STR_\\1\"));",$tpl);
 
 	apply_section($tpl,'ADMIN',$mod->user->present()?0:1);
 	apply_section($tpl,'USERMODE',$mod->usermode?0:1);

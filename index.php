@@ -16,8 +16,9 @@ require 'class/cls_module.php';
 require 'class/cls_page.php';
 require 'class/cls_user.php';
 
+
 $db=new cms_dblib;
-$db->connect('localhost','denmark1','root','');
+//$db->connect('localhost','denmark1','root','');
 
 $m=request('mod','start');
 $m_name='mod_'.$m;
@@ -32,6 +33,6 @@ $mod->user=new wh_user;
 $mod->run(request('c'));
 
 $mod->page->send($mod);
-$db->disconnect();
+//$db->disconnect();
 
 ?>
