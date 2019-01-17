@@ -34,7 +34,7 @@ function display($type=0)
 	$tpl=$this->page->read_template('list');
 
 
-	$tpl_item='<tr><td style="padding:2px 3px 4px 3px;background-color:[ROW[BCOL]]"><a href="/?mod=entry&amp;id=[ROW[ID]]">[ROW[TITLE]]</a></td></tr>';
+	$tpl_item='<tr><td style="padding:2px 3px 4px 3px;background-color:[ROW[BCOL]]"><a href="./?mod=entry&amp;id=[ROW[ID]]">[ROW[TITLE]]</a></td></tr>';
 
 
 
